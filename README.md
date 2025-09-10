@@ -17,7 +17,7 @@ I specialize in **cloud-native integrations, automation, and optimization** — 
 ---
 
 ## 🏆 Certifications & Awards  
-- Microsoft Certified: **AZ-305, AZ-104, AZ-204, AZ-900, AI-900, SC-900**  
+- Microsoft Certified: **AZ-305, AZ-500, AZ-104, AZ-204, AZ-900, AI-900, SC-900**  
 - **Accenture ACE Award**  
 - **Certificate of Appreciation** – SGS, Chanel, AQA Education (2023–2025)  
 - **Star of the Month** & **Star of the Quarter** – TCS  
