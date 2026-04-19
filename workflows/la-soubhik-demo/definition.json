@@ -1,0 +1,94 @@
+{
+  "definition": {
+    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "$connections": {
+        "defaultValue": {},
+        "type": "Object"
+      }
+    },
+    "triggers": {
+      "When_an_HTTP_request_is_received": {
+        "type": "Request",
+        "kind": "Http",
+        "inputs": {
+          "method": "GET"
+        }
+      }
+    },
+    "actions": {
+      "HTTPTEST": {
+        "runAfter": {
+          "Compose1": [
+            "Succeeded"
+          ]
+        },
+        "type": "Http",
+        "inputs": {
+          "uri": "https://www.google.com",
+          "method": "GET",
+          "headers": {},
+          "body": "@outputs('Compose1')",
+          "retryPolicy": {
+            "type": "none"
+          }
+        },
+        "runtimeConfiguration": {
+          "contentTransfer": {
+            "transferMode": "Chunked"
+          }
+        }
+      },
+      "Response": {
+        "runAfter": {
+          "Compose2": [
+            "Succeeded"
+          ]
+        },
+        "type": "Response",
+        "kind": "Http",
+        "inputs": {
+          "statusCode": 200
+        }
+      },
+      "Compose2": {
+        "runAfter": {
+          "HTTPTEST": [
+            "Succeeded"
+          ]
+        },
+        "type": "Compose",
+        "inputs": "@encodeUriComponent(body('HTTPTEST'))"
+      },
+      "HTTP2": {
+        "runAfter": {
+          "Compose1": [
+            "Succeeded"
+          ]
+        },
+        "type": "Http",
+        "inputs": {
+          "uri": "https://www.google.com",
+          "method": "GET"
+        },
+        "runtimeConfiguration": {
+          "contentTransfer": {
+            "transferMode": "Chunked"
+          }
+        }
+      },
+      "Compose1": {
+        "runAfter": {},
+        "type": "Compose",
+        "inputs": "HELLO"
+      }
+    },
+    "outputs": {}
+  },
+  "parameters": {
+    "$connections": {
+      "value": {}
+    }
+  }
+}
